@@ -69,16 +69,16 @@ with xr.open_dataset(data_root / ('anom_SD_June' + filename_end)) as ds:
 # load clim data
 clim_end = 'clim_'+str(clim_min)+'_'+str(clim_max)+'.nc'
 with xr.open_dataset(data_root / ('March_' + clim_end)) as ds:
-    mask_a = np.where(ds['sdp'] > 1, 1., np.nan)
+    mask_a = np.where(ds['sdp'] >= 1, 1., np.nan)
     data_a = data_a * mask_a
 with xr.open_dataset(data_root / ('April_' + clim_end)) as ds:
-    mask_b = np.where(ds['sdp'].values>1, 1., np.nan)
+    mask_b = np.where(ds['sdp'].values>=1, 1., np.nan)
     data_b = data_b * mask_b
 with xr.open_dataset(data_root / ('May_' + clim_end)) as ds:
-    mask_c = np.where(ds['sdp'].values>1, 1., np.nan)
+    mask_c = np.where(ds['sdp'].values>=1, 1., np.nan)
     data_c = data_c * mask_c
 with xr.open_dataset(data_root / ('June_' + clim_end)) as ds:
-    mask_d = np.where(ds['sdp'].values>1, 1., np.nan)
+    mask_d = np.where(ds['sdp'].values>=1, 1., np.nan)
     data_d = data_d * mask_d
 
 for i,data in enumerate([data_a, data_b, data_c, data_d]):
