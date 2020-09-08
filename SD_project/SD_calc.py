@@ -1,3 +1,5 @@
+#!/space/hall3/sitestore/eccc/crd/ccrp/mib001/usr_conda/envs/py3-arc-SCD/bin/python
+
 ## Author: Aleksandra Elias Chereque
 ## Created: Sept 2, 2020
 ## Last edited: Sept 2, 2020
