@@ -66,6 +66,7 @@ def read_mly_data(dir, zipname, months = 12):
             for row in range(1, 707):
                content = file_content[first + row].split()
                data[month, row-1, :] = [float(i) for i in content]
+
    return data
 
 def load_latlon():

@@ -117,6 +117,7 @@ def calculate_anom(month, year_of_interest, clim_years_min, clim_years_max, save
 
    data = load_years(clim_years_min, clim_years_max) #load (Aug, clim_year_min)-(July, clim_year_max)
    clim_for_month = clim_for_month_of_interest(data, month)
+   clim_for_month = clim_for_month.where(clim_for_month < 1e-5)
 
    specific_data = xr.open_mfdataset(CMC_files_loc+'CMC_sdp_mly_'+str(year_of_interest)+'.nc', combine='by_coords')
    select = specific_data.where(specific_data.time.dt.month == month, drop=True).isel(time=0)
@@ -127,8 +128,6 @@ def calculate_anom(month, year_of_interest, clim_years_min, clim_years_max, save
    #masking
    masked_anom = lsmask_data(percent_anom['sdp']) #mask out ocean and Greenland
    masked_anom = homog_mask_data(masked_anom) #apply homogeneity mask
-   masked_anom = masked_anom.where(masked_anom < 500)
-   masked_anom = masked_anom.where(masked_anom > -500)
  
    if save:
       print('saving anom')

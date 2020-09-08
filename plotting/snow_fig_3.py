@@ -6,13 +6,14 @@ import geopandas as gpd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import xarray as xr
+import numpy as np
 
 from xc_yc_to_x_y import convert_xc_yc_to_meters_CMC
 
 #### 
 clim_min = 1998
 clim_max = 2017
-year_interest = 2019
+year_interest = 2020
 
 #### FLAG TO ASSIGN OUTPUT FIGURE FORMAT
 FIG_FMT = 'PNG' # or 'PDF' or 'TIF'
@@ -29,7 +30,7 @@ data_crs = ccrs.Stereographic(true_scale_latitude=60, central_longitude=10, cent
 
 figsize = (11, 10)
 dpi = 100
-extent = [-5e6, 5e6, -5e6, 5e6]
+extent = [-6e6, 6e6, -6e6, 6e6]
 cbar_ticks = [-100, -80, -60, -40, -20, 0, 20, 40, 60, 80, 100]
 # copied the RGB values from Arc18_Snow_Fig2.png
 cmap = mpl.colors.LinearSegmentedColormap.from_list(
@@ -64,8 +65,24 @@ with xr.open_dataset(data_root / ('anom_SD_June' + filename_end)) as ds:
     data_d = ds['sdp']
     data_d = convert_xc_yc_to_meters_CMC(data_d)
 
-#for data in [data_a, data_b, data_c, data_d]:
-#    data = data.where(data != 0) #put nans on 0 values
+
+# load clim data
+clim_end = 'clim_'+str(clim_min)+'_'+str(clim_max)+'.nc'
+with xr.open_dataset(data_root / ('March_' + clim_end)) as ds:
+    mask_a = np.where(ds['sdp'] > 1, 1., np.nan)
+    data_a = data_a * mask_a
+with xr.open_dataset(data_root / ('April_' + clim_end)) as ds:
+    mask_b = np.where(ds['sdp'].values>1, 1., np.nan)
+    data_b = data_b * mask_b
+with xr.open_dataset(data_root / ('May_' + clim_end)) as ds:
+    mask_c = np.where(ds['sdp'].values>1, 1., np.nan)
+    data_c = data_c * mask_c
+with xr.open_dataset(data_root / ('June_' + clim_end)) as ds:
+    mask_d = np.where(ds['sdp'].values>1, 1., np.nan)
+    data_d = data_d * mask_d
+
+for i,data in enumerate([data_a, data_b, data_c, data_d]):
+    data = data.where(data != 0) #put nans on 0 values
 
 # load vector data
 land = gpd.read_file(plot_root / 'vector' / 'land.gpkg').to_crs(fig_crs.proj4_init)
@@ -91,7 +108,7 @@ plt.subplots_adjust(top=0.999, bottom=0.001, left=0.001, right=0.999)
 
 contour_a = data_a.plot.contourf(
     ax=ax_a, x='xc', y='yc', add_colorbar=False, transform=data_crs, 
-    cmap=cmap, levels=cbar_ticks, extend='neither', add_labels=False
+    cmap=cmap, levels=cbar_ticks, extend='both', add_labels=False
 )
 contour_b = data_b.plot.contourf(
     ax=ax_b, x='xc', y='yc', add_colorbar=False, transform=data_crs, 
