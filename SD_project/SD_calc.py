@@ -29,7 +29,7 @@ if RUN_SETUP:
 
 ### Edit:
 month_s_of_interest = [3, 4, 5, 6] #march, april, may, june
-year_of_interest = 2020
+year_of_interest = 2019
 clim_min = 1998
 clim_max = 2017
 ###
@@ -125,12 +125,14 @@ def calculate_anom(month, year_of_interest, clim_years_min, clim_years_max, save
    #masking
    masked_anom = lsmask_data(percent_anom['sdp']) #mask out ocean and Greenland
    masked_anom = homog_mask_data(masked_anom) #apply homogeneity mask
-
+   masked_anom = masked_anom.where(masked_anom < 500)
+   masked_anom = masked_anom.where(masked_anom > -500)
+ 
    if save:
       print('saving anom')
       masked_anom.to_netcdf(str(data_root)+'/anom_SD_'+month_names[str(month)]+str(year_of_interest)+'_clim_'+str(clim_years_min)+'_'+str(clim_years_max)+'.nc')
 
 for i in month_s_of_interest:
-   print('Working on month: '+month_names[str(i+1)])
+   print('Working on month: '+month_names[str(i)])
    calculate_clim(i, clim_min, clim_max, save=True)
    calculate_anom(i, year_of_interest, clim_min, clim_max, save=True)

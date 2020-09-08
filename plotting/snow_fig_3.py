@@ -12,10 +12,10 @@ from xc_yc_to_x_y import convert_xc_yc_to_meters_CMC
 #### 
 clim_min = 1998
 clim_max = 2017
-year_interest = 2020
+year_interest = 2019
 
 #### FLAG TO ASSIGN OUTPUT FIGURE FORMAT
-FIG_FMT = 'PDF' # or 'PNG' or 'TIF'
+FIG_FMT = 'PNG' # or 'PDF' or 'TIF'
 
 plt.rcParams['font.weight'] = 'bold'
 plt.rcParams['font.family'] = 'Arial'
@@ -25,7 +25,8 @@ plt.rcParams['xtick.labelsize'] = 14
 plt.rcParams['ytick.labelsize'] = 14
 
 fig_crs = ccrs.LambertAzimuthalEqualArea(central_latitude=90, central_longitude=-80)
-data_crs = ccrs.PlateCarree()
+data_crs = ccrs.Stereographic(true_scale_latitude=60, central_longitude=10, central_latitude = 90, globe=ccrs.Globe(semimajor_axis=6371200, semiminor_axis=6371200))
+
 figsize = (11, 10)
 dpi = 100
 extent = [-5e6, 5e6, -5e6, 5e6]
@@ -63,8 +64,8 @@ with xr.open_dataset(data_root / ('anom_SD_June' + filename_end)) as ds:
     data_d = ds['sdp']
     data_d = convert_xc_yc_to_meters_CMC(data_d)
 
-for data in [data_a, data_b, data_c, data_d]:
-    data = data.where(data != 0)
+#for data in [data_a, data_b, data_c, data_d]:
+#    data = data.where(data != 0) #put nans on 0 values
 
 # load vector data
 land = gpd.read_file(plot_root / 'vector' / 'land.gpkg').to_crs(fig_crs.proj4_init)
@@ -90,19 +91,19 @@ plt.subplots_adjust(top=0.999, bottom=0.001, left=0.001, right=0.999)
 
 contour_a = data_a.plot.contourf(
     ax=ax_a, x='xc', y='yc', add_colorbar=False, transform=data_crs, 
-    cmap=cmap
+    cmap=cmap, levels=cbar_ticks, extend='neither', add_labels=False
 )
 contour_b = data_b.plot.contourf(
     ax=ax_b, x='xc', y='yc', add_colorbar=False, transform=data_crs, 
-    cmap=cmap, levels=cbar_ticks, extend='both'
+    cmap=cmap, levels=cbar_ticks, extend='both', add_labels=False
 )
 contour_c = data_c.plot.contourf(
     ax=ax_c, x='xc', y='yc', add_colorbar=False, transform=data_crs, 
-    cmap=cmap, levels=cbar_ticks, extend='both'
+    cmap=cmap, levels=cbar_ticks, extend='both', add_labels=False
 )
 contour_d = data_d.plot.contourf(
     ax=ax_d, x='xc', y='yc', add_colorbar=False, transform=data_crs, 
-    cmap=cmap, levels=cbar_ticks, extend='both'
+    cmap=cmap, levels=cbar_ticks, extend='both', add_labels=False
 )
 
 # setting figure extents

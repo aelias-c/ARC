@@ -37,7 +37,7 @@ IMS_24KM_Y_CENTERS = np.arange(
 # details from https://khufkens.com/2014/07/24/georeferencing-daily-snow-depth-analysis-data/
 # and https://nsidc.org/data/nsidc-0447
 CMC_24KM_UL_CORNER = (-8405812.0, 8405812.0) # note that this is the corner, not the center-of-pixel!
-CMC_24KM_RES = 23812.5
+CMC_24KM_RES = 23812.499
 CMC_24KM_GRID_SIZE = 706
 
 # establishing upper-left and lower-left grid-cell-corners for array-generation
@@ -81,6 +81,7 @@ def convert_xc_yc_to_meters_CMC(xarray_dataset):
    note that in xarray.plot.contourf you will need to specify x='xc', y='yc'
    '''
    x = CMC_24KM_X_CENTERS
-   y = CMC_24KM_Y_CENTERS
+   y = CMC_24KM_Y_CENTERS[::-1] #need to fix an earlier transposition to get rid of this inversion
+
    ds = xarray_dataset.assign_coords({'xc':x, 'yc':y})
    return ds
