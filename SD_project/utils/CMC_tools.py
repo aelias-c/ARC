@@ -22,7 +22,7 @@ def read_lsmask():
          line = file_content[line_num]
          mask[line_num,:] = [i for i in line]
 
-   mask = np.transpose(mask)
+   mask = np.transpose(np.flip(mask, axis=1))
 
    return mask   
 
@@ -49,7 +49,7 @@ def read_homog_mask(return_latlon=False):
 
    mask = np.where(lat == 0, 1., 0.) 
 
-   lat, lon, mask = np.transpose(lat), np.transpose(lon), np.transpose(mask)
+   lat, lon, mask = np.transpose(np.flip(lat, axis=1)), np.transpose(np.flip(lon, axis=1)), np.transpose(np.flip(mask, axis=1))
 
    if return_latlon:
       return lat, lon, mask
@@ -76,7 +76,7 @@ def read_mly_data(dir, zipname, months = 12):
             for row in range(1, 707):
                content = file_content[first + row].split()
                data[month, row-1, :] = [float(i) for i in content]
-            data[month,:,:] = np.transpose(data[month,:,:])
+            data[month,:,:] = np.transpose(np.flip(data[month,:,:], axis=1))
 
    return data
 
@@ -97,8 +97,8 @@ def load_latlon():
       lats[i_idx, j_idx] = lat[idx]
       lons[i_idx, j_idx] = lon[idx]
 
-   lats, lons = np.transpose(lats), np.transpose(lons)
-   
+   lats, lons = np.transpose(np.flip(lats, axis=1)), np.transpose(np.flip(lons, axis=1))
+
    return lats, lons
    
 
