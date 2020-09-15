@@ -81,7 +81,7 @@ def convert_xc_yc_to_meters_CMC(xarray_dataset):
    note that in xarray.plot.contourf you will need to specify x='xc', y='yc'
    '''
    x = CMC_24KM_X_CENTERS
-   y = CMC_24KM_Y_CENTERS[::-1] #need to fix an earlier transposition to get rid of this inversion
+   y = CMC_24KM_Y_CENTERS
 
    ds = xarray_dataset.assign_coords({'xc':x, 'yc':y})
    return ds
