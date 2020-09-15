@@ -1,5 +1,6 @@
-DOWNLOAD = False #downloads data files, homog mask, land-sea mask, lat/lon 
-RUN_SETUP = True #creates the yearly NetCDF files
+DOWNLOAD = False #if true, downloads data files, homog mask, land-sea mask, lat/lon grids
+RUN_SETUP = True #if true, creates the yearly NetCDF files
+
 current_y = 2020 
 
 CMC_DIR = '/data/kushner_group/CMC_SD/'

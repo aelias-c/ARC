@@ -10,10 +10,11 @@ from utils.constants import CMC_DIR
 
 def read_lsmask():
    '''
-   Returns a lsmask with 1 on land and 0 on water for CMC snow depth data. 
+   Returns an array, functioning as a land-sea mask. Values of 1 on land and 0 on water, on CMC snow depth analysis lat-lon grid. 
    '''
 
    fname = CMC_DIR+'cmc_analysis_lsmask_binary_nogl_v01.2.txt'
+
    with open(fname, 'rt') as f:
       file_content = f.read().splitlines()
       mask = np.zeros((706, 706))
@@ -24,7 +25,10 @@ def read_lsmask():
 
 def read_homog_mask(return_latlon=False):
    '''
-   Returns a mask with value 0 on every grid square that needs to be excluded. On square lat/lon grids provided by CMC, coordiates are given for squares to be excluded, and zeros fill all the allowed squares. 
+   Returns a mask with value 0 on every grid square that needs to be excluded, 1 on good grid squares. 
+
+   Args:
+      return_latlon (bool): in case lat/lon grids are needed, set True. Default is False.
    '''
 
    fname = CMC_DIR + 'cmc_homog_mask_points_v01.2.csv'
@@ -48,7 +52,7 @@ def read_homog_mask(return_latlon=False):
 
 def read_mly_data(dir, zipname, months = 12):
    '''
-   Returns monthly snow depth data from a file containing data for a full year. 
+   Returns monthly snow depth data from a file containing data for a full year, as publically available.
 
    Args:
       dir (str): full path to the directory where the file has been downloaded
@@ -62,7 +66,7 @@ def read_mly_data(dir, zipname, months = 12):
       with z.open(fname, 'r') as f:
          file_content = f.read().splitlines()
          for month in range(months):
-            first = month * (706 + 1) #file formatted as 'YYYY MM \n (706,706) data, so skip the first line, and then every 706th after that
+            first = month * (706 + 1) #files are formatted as 'YYYY MM \n (706,706) data, so skip the first line, and then every 706th line after that
             for row in range(1, 707):
                content = file_content[first + row].split()
                data[month, row-1, :] = [float(i) for i in content]
