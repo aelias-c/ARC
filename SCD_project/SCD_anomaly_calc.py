@@ -22,11 +22,11 @@ data_root = plot_root.parent / 'data'
 ## Set the years to be used when calculating the climatology
 
 CLIM_MIN = 1998 #implies beginning from August of this year
-CLIM_MAX = 2018 #implies ending in July of this year
+CLIM_MAX = 2017 #implies ending in July of this year
 
 ## Set the year for which to calculate the SCD anomaly
 
-year_of_interest = [2019, 2020] #implies snow season August 2019-July 2020
+year_of_interest = [2018, 2019] #implies snow season August 2019-July 2020
 
 # Setup, as set in utils/constants.py:
 
@@ -94,7 +94,7 @@ def clim_to_netcdf(clim_year_min, clim_year_max):
    clim_SCD = calc_seasonal_SCD(data)
 
    cut_data = clim_SCD.snowc[:, 158:1024-158+1, 158:1024-158+1]
-   file_name = 'clim_SCD_'+str(clim_year_min)+'_'+str(clim_year_max)+'.nc'
+   file_name = 'clim_SCD_'+str(clim_year_min)+'_'+str(clim_year_max)+'_using_'+str(CLIM_MIN)+'_'+str(CLIM_MAX)+'.nc'
    cut_data.to_netcdf(data_root / file_name)
 
    
@@ -118,6 +118,7 @@ def anom_to_netcdf(year, clim_year_min, clim_year_max):
 
    cut_data = anom.snowc[:, 158:1024-158+1, 158:1024-158+1]
    file_name = 'anom_SCD_'+str(year[0])+'_to_'+str(year[1])+'.nc'
+   file_name = 'anom_SCD_'+str(year[0])+'_'+str(year[1])+'_using_'+str(CLIM_MIN)+'_to_'+str(CLIM_MAX)+'.nc'
    cut_data.to_netcdf(data_root / file_name)
 
 clim_to_netcdf(CLIM_MIN, CLIM_MAX)

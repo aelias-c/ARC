@@ -3,7 +3,7 @@
 DOWNLOAD_DATA = False 
 #False if data has been downloaded 
 
-RUN_SETUP = False
+RUN_SETUP = True
 #False if all data has been reformatted to netCDF 
 
 current_y = 2020 

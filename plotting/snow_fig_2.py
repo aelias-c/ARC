@@ -14,7 +14,7 @@ from xc_yc_to_x_y import convert_xc_yc_to_meters_IMS
 FIG_FMT = 'PNG' # or 'PNG' or 'TIF'
 
 #### file name for year of interest
-data_file='anom_SCD_2019_to_2020.nc'
+data_file='anom_SCD_2018_2019_using_1998_to_2017.nc'
 
 plt.rcParams['font.weight'] = 'bold'
 plt.rcParams['font.family'] = 'Arial'
@@ -95,10 +95,10 @@ ax_b.text(0.02, 0.94, 'b.', fontsize=30, transform=ax_b.transAxes)
 
 # save
 if FIG_FMT.upper() == 'PDF':
-    plt.savefig(plot_root.parent / 'figures' / 'ARC_Snow_Fig2-aleksdata.pdf', dpi=dpi)
+    plt.savefig(plot_root.parent / 'figures' / 'ARC_Snow_Fig2-python.pdf', dpi=dpi)
 elif FIG_FMT.upper() == 'PNG':
-    plt.savefig(plot_root.parent / 'figures' / 'ARC_Snow_Fig2-aleksdata.png', dpi=dpi)
+    plt.savefig(plot_root.parent / 'figures' / 'ARC_Snow_Fig2-python.png', dpi=dpi)
 elif FIG_FMT.upper() == 'TIF':
-    plt.savefig(plot_root.parent / 'figures' / 'ARC_Snow_Fig2-aleksdata.tif', dpi=dpi)
+    plt.savefig(plot_root.parent / 'figures' / 'ARC_Snow_Fig2-python.tif', dpi=dpi)
 else:
     print('Unrecognized figure format: "%s" (must be PNG or PDF)' % FIG_FMT)

@@ -13,7 +13,7 @@ from xc_yc_to_x_y import convert_xc_yc_to_meters_CMC
 #### 
 clim_min = 1998
 clim_max = 2017
-year_interest = 2020
+year_interest = 2019
 
 #### FLAG TO ASSIGN OUTPUT FIGURE FORMAT
 FIG_FMT = 'PNG' # or 'PDF' or 'TIF'

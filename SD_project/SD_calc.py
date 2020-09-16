@@ -2,7 +2,7 @@
 
 ## Author: Aleksandra Elias Chereque
 ## Created: Sept 2, 2020
-## Last edited: Sept 15, 2020
+## Last edited: Sept 16, 2020
 
 import xarray as xr
 from pathlib import Path
@@ -122,11 +122,11 @@ def calculate_anom(month, year_of_interest, clim_years_min, clim_years_max, save
 
    data = load_years(clim_years_min, clim_years_max) #load (Aug, clim_year_min)-(July, clim_year_max)
    clim_for_month = clim_for_month_of_interest(data, month)
-   clim_for_month = clim_for_month.where(clim_for_month < 1e-5) #mask out very small values to avoid dividing by zero later
+   clim_for_month = clim_for_month.where(clim_for_month > 1e-5) #mask out very small values to avoid dividing by zero later
 
    specific_data = xr.open_mfdataset(CMC_files_loc+'CMC_sdp_mly_'+str(year_of_interest)+'.nc', combine='by_coords')
    specific_data_mly = calc_mly_clim(specific_data)
-   select = specific_data_mly.where(specific_data_mly.month == month, drop=True).isel(time=0)
+   select = specific_data_mly.where(specific_data_mly.month == month, drop=True).isel(month=0)
 
    #key calculation
    percent_anom = ((select - clim_for_month) / clim_for_month) * 100 

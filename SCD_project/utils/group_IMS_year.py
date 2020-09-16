@@ -79,6 +79,7 @@ def raw_to_nc_IMS(year):
    unpacked_days = list_unpacked_days(year)
 
    for i in range(1, len(times)+1):
+      print(i)
       path, date = file_and_date(i, year)
       if (year == 1997) or (year == 1998):
          if np.isin(i, unpacked_days):
