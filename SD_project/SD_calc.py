@@ -26,8 +26,8 @@ if DOWNLOAD:
    download_CMC_homogmask()
  
 if RUN_SETUP:
-   for year in range(1998, current_y):
-      raw_to_nc_CMC(year)
+#   for year in range(1998, current_y):
+#      raw_to_nc_CMC(year)
    currenty_raw_to_nc_CMC(6) #see README 
 
 ### Edit:
