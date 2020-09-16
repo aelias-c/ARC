@@ -1,5 +1,5 @@
 DOWNLOAD = False #if true, downloads data files, homog mask, land-sea mask, lat/lon grids
-RUN_SETUP = False #if true, creates the yearly NetCDF files
+RUN_SETUP = True #if true, creates the yearly NetCDF files
 
 current_y = 2020 
 

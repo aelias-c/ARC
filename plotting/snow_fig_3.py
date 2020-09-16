@@ -26,7 +26,7 @@ plt.rcParams['xtick.labelsize'] = 14
 plt.rcParams['ytick.labelsize'] = 14
 
 fig_crs = ccrs.LambertAzimuthalEqualArea(central_latitude=90, central_longitude=-80)
-data_crs = ccrs.Stereographic(true_scale_latitude=60, central_longitude=10, central_latitude = 90, globe=ccrs.Globe(semimajor_axis=6371200, semiminor_axis=6371200))
+data_crs = ccrs.Stereographic(true_scale_latitude=60, central_longitude=-80, central_latitude = 90, globe=ccrs.Globe(semimajor_axis=6371200, semiminor_axis=6371200))
 
 figsize = (11, 10)
 dpi = 100

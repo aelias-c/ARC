@@ -63,7 +63,7 @@ def currenty_raw_to_nc_CMC(months_available):
 
    for i in range(months_available):
       data = xr.open_dataset(CMC_DIR+str(current_y)+'%02d'%(i+1)+'_snow_ps24km60N.nc')
-      sdp[i,:,:] = np.transpose(data.snd.values)
+      sdp[i,:,:] = np.flip(data.snd.values, axis=0)
    
    for i in range(1, len(times)+1):
       if current_y == 1998:

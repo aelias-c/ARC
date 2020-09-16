@@ -43,7 +43,7 @@ def download_monthly_CMC_year(year):
    listing = []
    ftp.retrlines('LIST', listing.append)
    list_year = [name for name in listing if str(year) in name]
-   if len(list_year) == 1: #only '..' exists in directory, no file
+   if len(list_year) == 0: #only '..' exists in directory, no file
       print('No file for this year exists')
    else:
       words = list_year[0].split(None, 8)
