@@ -21,6 +21,9 @@ def read_lsmask():
       for line_num in range(706):
          line = file_content[line_num]
          mask[line_num,:] = [i for i in line]
+
+   mask = np.transpose(np.flip(mask, axis=1))
+
    return mask   
 
 def read_homog_mask(return_latlon=False):
@@ -45,6 +48,9 @@ def read_homog_mask(return_latlon=False):
       lon[int(i), int(j)] = longitude
 
    mask = np.where(lat == 0, 1., 0.) 
+
+   lat, lon, mask = np.transpose(np.flip(lat, axis=1)), np.transpose(np.flip(lon, axis=1)), np.transpose(np.flip(mask, axis=1))
+
    if return_latlon:
       return lat, lon, mask
    else:
@@ -70,6 +76,7 @@ def read_mly_data(dir, zipname, months = 12):
             for row in range(1, 707):
                content = file_content[first + row].split()
                data[month, row-1, :] = [float(i) for i in content]
+            data[month,:,:] = np.transpose(np.flip(data[month,:,:], axis=1))
 
    return data
 
@@ -82,14 +89,15 @@ def load_latlon():
 
    i, j, lat, lon = np.loadtxt(CMC_DIR+'cmc_analysis_ps_lat_lon_v01.2.txt', skiprows=9, unpack=True)
 
-   lats = np.zeros((706, 706))
-   lons = np.zeros((706, 706))
+   lats, lons = np.zeros((706, 706)), np.zeros((706, 706))
 
    for idx in range(len(i)):
       i_idx = int(i[idx]) - 1 #Python convention
       j_idx = int(j[idx]) - 1 #Python convention
       lats[i_idx, j_idx] = lat[idx]
       lons[i_idx, j_idx] = lon[idx]
+
+   lats, lons = np.transpose(np.flip(lats, axis=1)), np.transpose(np.flip(lons, axis=1))
 
    return lats, lons
    
