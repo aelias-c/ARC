@@ -121,7 +121,7 @@
 4. Run snow_fig_2.py
 
 
-![ARC fig2](./figures/ARC_Snow_Fig2-python.png)
+![ARC fig2](./readme_fig/ARC_Snow_Fig2-python.png)
 
 # SD anomaly figure for 2018/19 winter season 
 
@@ -133,7 +133,7 @@
 4. Run snow_fig_3.py
 
 
-![ARC fig3](./figures/ARC_Snow_Fig3-python.png)
+![ARC fig3](./readme_fig/ARC_Snow_Fig3-python.png)
 
 
 

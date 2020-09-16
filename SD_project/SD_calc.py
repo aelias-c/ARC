@@ -32,7 +32,7 @@ if RUN_SETUP:
 
 ### Edit:
 month_s_of_interest = [3, 4, 5, 6] #list of one or more months, 1=Jan
-year_of_interest = 2019
+year_of_interest = 2020
 clim_min = 1998
 clim_max = 2017
 ### In this case, March, April, May, June of 2019 will be compared against data from Aug, 1998 to July, 2017
